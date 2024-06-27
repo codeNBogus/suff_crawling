@@ -33,10 +33,10 @@ def login(driver, id, password):
 
 # 검색요건1(origin)
 def search_origin(driver, country, address):
-    #type 선택
     origin_button = driver.find_element(By.XPATH, '//*[@id="app-container"]/main/div/div[1]/div[2]/div/div/div[1]/p')
     driver.implicitly_wait(10)
     origin_button.click()
+    #type 선택
     origin_type = driver.find_element(By.XPATH, '//*[@id="app-container"]/main/div/div[1]/div[2]/div/div/div[5]/div/div/div/div/div/div[1]/div[1]/div[1]/div/div[2]/div/span/div/div/div/div')
     driver.implicitly_wait(10)
     origin_type.click()
@@ -63,11 +63,11 @@ def search_origin(driver, country, address):
 
 # 검색요건2(destination)
 def search_destination(driver, country, address):
-    destination_button = driver.find_element(By.CSS_SELECTOR, '#app-container > main > div > div.Search__BlueHeadingWrapper-sc-1qhtkx9-1.hRPKaw > div.SearchCategories__SearchCategoriesWrapper-sc-1jrg13v-0.iuyMbc > div > div > div.Category__CategoryWrapper-sc-1nnpxxq-0.kimxEM')
+    destination_button = driver.find_element(By.XPATH, '//*[@id="app-container"]/main/div/div[1]/div[2]/div/div/div[2]')
     driver.implicitly_wait(10)
     destination_button.click()
     # type 선택
-    destination_type = driver.find_element(By.CSS_SELECTOR, '#app-container > main > div > div.Search__BlueHeadingWrapper-sc-1qhtkx9-1.hRPKaw > div.SearchCategories__SearchCategoriesWrapper-sc-1jrg13v-0.iuyMbc > div > div > div:nth-child(6) > div > div > div > div > div > div.OriginDestinationSelect__ManualSelectSectionContainer-sc-9mmlx6-1.CWOiH > div.ant-row.common__fdsComponent__1PAUE > div.ant-col.ant-col-8.common__fdsComponent__1PAUE > div > div.ant-col.ant-form-item-control-wrapper > div > span > div')
+    destination_type = driver.find_element(By.CSS_SELECTOR, '#app-container > main > div > div.Search__BlueHeadingWrapper-sc-1qhtkx9-1.hRPKaw > div.SearchCategories__SearchCategoriesWrapper-sc-1jrg13v-0.iuyMbc > div > div > div:nth-child(6) > div > div > div > div > div > div.OriginDestinationSelect__ManualSelectSectionContainer-sc-9mmlx6-1.CWOiH > div.ant-row.common__fdsComponent__1PAUE > div.ant-col.ant-col-8.common__fdsComponent__1PAUE > div > div.ant-col.ant-form-item-control-wrapper > div > span > div > div > div > div')
     driver.implicitly_wait(10)
     destination_type.click()
     driver.find_element(By.XPATH,'/html/body/div[12]/div/div/div/ul/li[1]').click()
@@ -147,6 +147,12 @@ def search_goods(driver, value):
     
     driver.find_element(By.XPATH, '//*[@id="app-container"]/main/div/div[1]/div[2]/div/div/div[8]/div/div/div/div/div/div/div[2]/button').click()
 
+# Done !
+def search_done(driver):
+    search_button = driver.find_element(By.XPATH, '//*[@id="app-container"]/main/div/div[1]/div[2]/div/div/button')
+    driver.implicitly_wait(10)
+    search_button.click()
+
 if __name__ == "__main__":
     driver = get_driver()
     time.sleep(2)
@@ -159,4 +165,6 @@ if __name__ == "__main__":
     search_load(driver)
     time.sleep(2)
     search_goods(driver, "100000")
+    time.sleep(2)
+    search_done(driver)
     time.sleep(10)
