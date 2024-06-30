@@ -10,6 +10,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains
 # driver.implicitly_wait(10)
 
+
 # 크롬드라이버 실행
 def get_driver():
     driver = webdriver.Chrome()
@@ -63,33 +64,36 @@ def search_origin(driver, country, address):
 
 # 검색요건2(destination)
 def search_destination(driver, country, address):
-    destination_button = driver.find_element(By.XPATH, '//*[@id="app-container"]/main/div/div[1]/div[2]/div/div/div[2]')
+    destination_button = driver.find_element(By.CSS_SELECTOR, '[data-test-id="CategoryWrapper-destination"]')
     driver.implicitly_wait(10)
     destination_button.click()
     # type 선택
-    destination_type = driver.find_element(By.CSS_SELECTOR, '#app-container > main > div > div.Search__BlueHeadingWrapper-sc-1qhtkx9-1.hRPKaw > div.SearchCategories__SearchCategoriesWrapper-sc-1jrg13v-0.iuyMbc > div > div > div:nth-child(6) > div > div > div > div > div > div.OriginDestinationSelect__ManualSelectSectionContainer-sc-9mmlx6-1.CWOiH > div.ant-row.common__fdsComponent__1PAUE > div.ant-col.ant-col-8.common__fdsComponent__1PAUE > div > div.ant-col.ant-form-item-control-wrapper > div > span > div > div > div > div')
+    destination_type = driver.find_element(By.CSS_SELECTOR, '[data-test-id="destination-type"]')
     driver.implicitly_wait(10)
     destination_type.click()
-    driver.find_element(By.XPATH,'/html/body/div[12]/div/div/div/ul/li[1]').click()
+    action = ActionChains(driver)
+    action.move_to_element(destination_type).move_by_offset(90, 45).click().perform()
     #country 선택
-    destination_country = driver.find_element(By.XPATH, '//*[@id="app-container"]/main/div/div[1]/div[2]/div/div/div[5]/div/div/div/div/div/div[1]/div[1]/div[2]/div[1]/div/div[2]/div/span/div/div/div/div')
+    destination_country = driver.find_element(By.CSS_SELECTOR, '[data-test-id="destination-country-select"]')
     driver.implicitly_wait(10)
     destination_country.click()
-    driver.find_element(By.XPATH, '/html/body/div[2]/section/main/div/div[1]/div[2]/div/div/div[5]/div/div/div/div/div/div[1]/div[1]/div[2]/div[1]/div/div[2]/div/span/div/div/div/div/div[3]/div/input').send_keys(country)
-    target = driver.find_element(By.XPATH, '/html/body/div[2]/section/main/div/div[1]/div[2]/div/div/div[5]/div/div/div/div/div/div[1]/div[1]/div[2]/div[1]/div/div[2]/div/span/div/div/div/div/div[3]/div/input')
-    action = ActionChains(driver)
-    action.move_to_element(target).move_by_offset(90, 45).click().perform()
+    driver.implicitly_wait(10)
+    #destination_country.send_keys(country)
+    #driver.find_element(By.CSS_SELECTOR, 'div.ant-select-search.ant-select-search--inline > div > input').send_keys(country)
+    #action = ActionChains(driver)
+    #action.move_to_element(destination_country).move_by_offset(90, 45).click().perform()
     
-    destination_address = driver.find_element(By.XPATH, '//*[@id="app-container"]/main/div/div[1]/div[2]/div/div/div[5]/div/div/div/div/div/div[1]/div[1]/div[2]/div[2]/div[1]/div[2]/div/span/div/div/div')
+    destination_address = driver.find_element(By.CSS_SELECTOR, '[data-test-id="destination-address-select"]')
     driver.implicitly_wait(10)
     destination_address.click()
     driver.implicitly_wait(10)
-    driver.find_element(By.XPATH, '/html/body/div[2]/section/main/div/div[1]/div[2]/div/div/div[5]/div/div/div/div/div/div[1]/div[1]/div[2]/div[2]/div[1]/div[2]/div/span/div/div/div/div[2]/div/input').send_keys(address)
-    target = driver.find_element(By.XPATH, '/html/body/div[2]/section/main/div/div[1]/div[2]/div/div/div[5]/div/div/div/div/div/div[1]/div[1]/div[2]/div[2]/div[1]/div[2]/div/span/div/div/div/div[2]/div/input')
-    action = ActionChains(driver)
-    action.move_to_element(target).move_by_offset(90, 45).click().perform()
+    destination_address.send_keys(address)
+    #driver.find_element(By.XPATH, '/html/body/div[2]/section/main/div/div[1]/div[2]/div/div/div[5]/div/div/div/div/div/div[1]/div[1]/div[2]/div[2]/div[1]/div[2]/div/span/div/div/div/div[2]/div/input').send_keys(address)
+    #target = driver.find_element(By.XPATH, '/html/body/div[2]/section/main/div/div[1]/div[2]/div/div/div[5]/div/div/div/div/div/div[1]/div[1]/div[2]/div[2]/div[1]/div[2]/div/span/div/div/div/div[2]/div/input')
+    #action = ActionChains(driver)
+    #action.move_to_element(target).move_by_offset(90, 45).click().perform()
 
-    driver.find_element(By.CLASS_NAME, 'ant-btn.common__fdsComponent__1PAUE.Button__fdsButton__2D3p1.ant-btn-primary.ant-btn-icon-only').click()
+    #driver.find_element(By.CLASS_NAME, 'ant-btn.common__fdsComponent__1PAUE.Button__fdsButton__2D3p1.ant-btn-primary.ant-btn-icon-only').click()
     
 def search_destination2(driver, country, address):
     destination_button = driver.find_element(By.XPATH, '//*[@id="app-container"]/main/div/div[1]/div[2]/div/div/div[2]')
