@@ -5,7 +5,7 @@ from selenium.webdriver.support.ui import Select
 import time
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-
+from selenium.webdriver.common.keys import Keys
 # ActionChains 모듈 import
 from selenium.webdriver.common.action_chains import ActionChains
 # driver.implicitly_wait(10)
@@ -55,12 +55,10 @@ def search_origin(driver, country, address):
     origin_address = driver.find_element(By.XPATH, '//*[@id="app-container"]/main/div/div[1]/div[2]/div/div/div[5]/div/div/div/div/div/div[1]/div[1]/div[2]/div[2]/div[1]/div[2]/div/span/div/div/div')
     driver.implicitly_wait(10)
     origin_address.click()
-    driver.find_element(By.XPATH, '/html/body/div[2]/section/main/div/div[1]/div[2]/div/div/div[5]/div/div/div/div/div/div[1]/div[1]/div[2]/div[2]/div[1]/div[2]/div/span/div/div/div/div[2]/div/input').send_keys(address)
+    driver.find_element(By.XPATH, '/html/body/div[2]/section/main/div/div[1]/div[2]/div/div/div[5]/div/div/div/div/div/div[1]/div[1]/div[2]/div[2]/div/div[2]/div/span/div/div/div/div[2]/div/input').send_keys(address)
     target = driver.find_element(By.XPATH, '/html/body/div[2]/section/main/div/div[1]/div[2]/div/div/div[5]/div/div/div/div/div/div[1]/div[1]/div[2]/div[2]/div[1]/div[2]/div/span/div/div/div/div[2]/div/input')
     action = ActionChains(driver)
     action.move_to_element(target).move_by_offset(90, 45).click().perform()
-
-    driver.find_element(By.CLASS_NAME, 'ant-btn.common__fdsComponent__1PAUE.Button__fdsButton__2D3p1.ant-btn-primary.ant-btn-icon-only').click()
 
 # 검색요건2(destination)
 def search_destination(driver, country, address):
@@ -78,44 +76,21 @@ def search_destination(driver, country, address):
     driver.implicitly_wait(10)
     destination_country.click()
     driver.implicitly_wait(10)
-    #destination_country.send_keys(country)
-    #driver.find_element(By.CSS_SELECTOR, 'div.ant-select-search.ant-select-search--inline > div > input').send_keys(country)
-    #action = ActionChains(driver)
-    #action.move_to_element(destination_country).move_by_offset(90, 45).click().perform()
+    driver.find_element(By.XPATH, '//*[@id="app-container"]/main/div/div[1]/div[2]/div/div/div[6]/div/div/div/div/div/div[1]/div[1]/div[2]/div[1]/div/div[2]/div/span/div/div/div/div/div[3]/div/input').send_keys(country)
+    driver.implicitly_wait(10)
+    target = driver.find_element(By.XPATH, '//*[@id="app-container"]/main/div/div[1]/div[2]/div/div/div[6]/div/div/div/div/div/div[1]/div[1]/div[2]/div[1]/div/div[2]/div/span/div/div/div/div/div[3]/div/input')
+    action = ActionChains(driver)
+    action.move_to_element(target).move_by_offset(90, 45).click().perform()
     
     destination_address = driver.find_element(By.CSS_SELECTOR, '[data-test-id="destination-address-select"]')
     driver.implicitly_wait(10)
     destination_address.click()
     driver.implicitly_wait(10)
-    destination_address.send_keys(address)
-    #driver.find_element(By.XPATH, '/html/body/div[2]/section/main/div/div[1]/div[2]/div/div/div[5]/div/div/div/div/div/div[1]/div[1]/div[2]/div[2]/div[1]/div[2]/div/span/div/div/div/div[2]/div/input').send_keys(address)
-    #target = driver.find_element(By.XPATH, '/html/body/div[2]/section/main/div/div[1]/div[2]/div/div/div[5]/div/div/div/div/div/div[1]/div[1]/div[2]/div[2]/div[1]/div[2]/div/span/div/div/div/div[2]/div/input')
-    #action = ActionChains(driver)
-    #action.move_to_element(target).move_by_offset(90, 45).click().perform()
-
-    #driver.find_element(By.CLASS_NAME, 'ant-btn.common__fdsComponent__1PAUE.Button__fdsButton__2D3p1.ant-btn-primary.ant-btn-icon-only').click()
-    
-def search_destination2(driver, country, address):
-    destination_button = driver.find_element(By.XPATH, '//*[@id="app-container"]/main/div/div[1]/div[2]/div/div/div[2]')
-    driver.implicitly_wait(10)
-    ## destination_button 을 좌표 기준으로 두고 마우스 제어
+    driver.find_element(By.XPATH, '//*[@id="app-container"]/main/div/div[1]/div[2]/div/div/div[6]/div/div/div/div/div/div[1]/div[1]/div[2]/div[2]/div/div[2]/div/span/div/div/div/div[2]/div/input').send_keys(address)
+    target = driver.find_element(By.XPATH, '//*[@id="app-container"]/main/div/div[1]/div[2]/div/div/div[6]/div/div/div/div/div/div[1]/div[1]/div[2]/div[2]/div/div[2]/div/span/div/div/div/div[2]/div/input')
     action = ActionChains(driver)
-    action.move_to_element(destination_button).move_by_offset(0, 0).click().perform()
-    time.sleep(1)
-    action.move_to_element(destination_button).move_by_offset(-200, 150).click().perform()
-    time.sleep(1)
-    action.move_to_element(destination_button).move_by_offset(-200, 165).click().perform()
-    time.sleep(1)
-   
-    # country 입력
-    action.move_to_element(destination_button).move_by_offset(0, 150).click().perform()
-    time.sleep(1)
-    #driver.find_element(By.CLASS_NAME, 'ant-select-search__field').send_keys(country)
-    # address 입력
-    action.move_to_element(destination_button).move_by_offset(200, 150).click().perform()
-    #action.move_to_element(destination_button).move_by_offset(-169, 180).click().perform()
-
-
+    action.move_to_element(target).move_by_offset(90, 45).click().perform()
+    
 # 검색요건3(Load)
 def search_load(driver):
     load_button = driver.find_element(By.XPATH, '//*[@id="app-container"]/main/div/div[1]/div[2]/div/div/div[3]')
@@ -156,6 +131,28 @@ def search_done(driver):
     search_button = driver.find_element(By.XPATH, '//*[@id="app-container"]/main/div/div[1]/div[2]/div/div/button')
     driver.implicitly_wait(10)
     search_button.click()
+    singleBond_button = driver.find_element(By.XPATH, '/html/body/div[12]/div/div/div/div[2]/div[2]/div/div[3]/div[2]/ul[2]/li/div[4]/label[1]')
+    driver.implicitly_wait(10)
+    singleBond_button.click()
+    result_button = driver.find_element(By.XPATH, '/html/body/div[12]/div/div/div/div[2]/div[3]/div/button[2]')
+    driver.implicitly_wait(10)
+    result_button.click()
+
+# best offer 선택
+def select_offer(driver):
+    offer_button = driver.find_element(By.XPATH, '//*[@id="results-view"]/section/section/main/div[1]/div/div')
+    driver.implicitly_wait(10)
+    offer_button.click()
+
+    fee40 = driver.find_element(By.XPATH, '//*[@id="results-view"]/section/section/main/div[1]/div/div[2]/div/div[1]/div[3]/div[6]/span/span[2]')
+    fee20 = driver.find_element(By.XPATH, '//*[@id="results-view"]/section/section/main/div[1]/div/div[2]/div/div[1]/div[4]/div[6]/span/span[2]')
+    print("OCEAN 20' :", fee20.text)
+    print("OCEAN 40' :", fee40.text)
+    #driver.find_element(By.XPATH, '/html/body/div[2]/section/main/div/div[1]/div[2]/div/div/div[2]/div/div/div/div/div/div/div[1]/div[2]/div/div[2]/div[1]/div/div[2]/div/span/div/div/div/div/div[3]/div/input').send_keys('Best Offer')
+    #target = driver.find_element(By.XPATH, '/html/body/div[2]/section/main/div/div[1]/div[2]/div/div/div[2]/div/div/div/div/div/div/div[1]/div[2]/div/div[2]/div[1]/div/div[2]/div/span/div/div/div/div/div[3]/div/input')
+    #action = ActionChains(driver)
+    #action.move_to_element(target).move_by_offset(90, 45).click().perform()
+    #driver.find_element(By.XPATH, '/html/body/div[2]/section/main/div/div[1]/div[2]/div/div/div[2]/div/div/div/div/div/div/div[2]/button').click()
 
 if __name__ == "__main__":
     driver = get_driver()
@@ -171,4 +168,6 @@ if __name__ == "__main__":
     search_goods(driver, "100000")
     time.sleep(2)
     search_done(driver)
+    time.sleep(8)
+    select_offer(driver)
     time.sleep(10)
